@@ -1,0 +1,68 @@
+{
+  "name": "@rb-mwindh/next-version",
+  "version": "1.0.0",
+  "description": "CLI to discover the next version of a package based on the commit history and the conventional commit specification.",
+  "author": "Markus Windhager",
+  "license": "MIT",
+  "private": false,
+  "keywords": [
+    "npm",
+    "cli",
+    "tool",
+    "semver",
+    "conventional-commits",
+    "versioning",
+    "release"
+  ],
+  "type": "module",
+  "bin": {
+    "next-version": "./bin/cli/index.js"
+  },
+  "files": [
+    "bin/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rb-mwindh/next-version.git"
+  },
+  "homepage": "https://github.com/rb-mwindh/next-version",
+  "bugs": {
+    "url": "https://github.com/rb-mwindh/next-version/issues"
+  },
+  "scripts": {
+    "start": "npx next-version",
+    "test": "npx jest",
+    "build:ts": "tsc",
+    "build:cli": "ncc build dist/cli.js -o bin/cli --minify --license licenses.txt",
+    "build:action": "ncc build dist/action-entrypoint.js -o bin/action --minify --license licenses.txt",
+    "build": "npm run build:ts && npm run build:cli && npm run build:action"
+  },
+  "dependencies": {
+    "@actions/core": "^2.0.2",
+    "@npmcli/config": "^10.6.0",
+    "commander": "^14.0.2",
+    "minimatch": "^10.1.2",
+    "pacote": "^21.3.0",
+    "semver": "^7.7.4",
+    "simple-git": "^3.30.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.0.10",
+    "@types/npmcli__config": "^6.0.3",
+    "@types/pacote": "^11.1.8",
+    "@types/semver": "^7.7.1",
+    "@vercel/ncc": "^0.38.4",
+    "conventional-recommended-bump": "^11.2.0",
+    "jest": "^30.2.0",
+    "ts-jest": "^29.4.6"
+  }
+}

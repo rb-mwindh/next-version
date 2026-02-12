@@ -1,0 +1,3 @@
+node_modules/
+dist/
+# bin/ wird versioniert und bleibt im Repo

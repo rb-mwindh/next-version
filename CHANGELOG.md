@@ -1,3 +1,10 @@
+# 1.0.0 (2026-02-12)
+
+
+### Features
+
+* Initial commit ([2a85645](https://github.com/rb-mwindh/next-version/commit/2a85645c542b5d9a85c06566524a193e2e78823d))
+
 ## [1.2.7](https://github.com/rb-mwindh/setup-npm-auth/compare/v1.2.6...v1.2.7) (2026-01-28)
 
 

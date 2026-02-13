@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/rb-mwindh/next-version/compare/v1.0.0...v1.0.1) (2026-02-13)
+
+
+### Bug Fixes
+
+* **deps:** update package-lock.json ([a8cd7a0](https://github.com/rb-mwindh/next-version/commit/a8cd7a0ef5770f7c93d313c066882a07d272e57c))
+
 # 1.0.0 (2026-02-12)
 
 

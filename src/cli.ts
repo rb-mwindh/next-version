@@ -125,9 +125,7 @@ function parseBranches(branchesJson?: string, simpleBranches?: string[]): Branch
     throw new Error("No branches configuration provided. Use --branches JSON or one/more --branch entries.");
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
-    main().catch((err) => {
-        console.error(err instanceof Error ? err.message : err);
-        process.exit(1);
-    });
-}
+main().catch((err) => {
+    console.error(err instanceof Error ? err.message : err);
+    process.exit(1);
+});

@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/rb-mwindh/next-version/compare/v1.0.2...v1.0.3) (2026-02-13)
+
+
+### Bug Fixes
+
+* **cli:** always execute main without import.meta guard ([c3c590f](https://github.com/rb-mwindh/next-version/commit/c3c590f9fec9f5d05d486f6070f2495c8e4ce31f))
+
 ## [1.0.2](https://github.com/rb-mwindh/next-version/compare/v1.0.1...v1.0.2) (2026-02-13)
 
 

@@ -45,6 +45,11 @@ jobs:
       - name: Build action bundle
         run: npm run build
 
+      - name: Debug CLI binary
+        run: |
+          ls -la bin/cli/index.js
+          head -n 1 bin/cli/index.js
+
       - name: Release Package
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

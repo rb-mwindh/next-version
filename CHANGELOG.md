@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/rb-mwindh/next-version/compare/v1.0.1...v1.0.2) (2026-02-13)
+
+
+### Bug Fixes
+
+* **deps:** update package.json ([c27bc9c](https://github.com/rb-mwindh/next-version/commit/c27bc9c1da07b916458741051acd7cedd1dcef1f))
+
 ## [1.0.1](https://github.com/rb-mwindh/next-version/compare/v1.0.0...v1.0.1) (2026-02-13)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@rb-mwindh/next-version",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "CLI to discover the next version of a package based on the commit history and the conventional commit specification.",
   "author": "Markus Windhager",
   "license": "MIT",

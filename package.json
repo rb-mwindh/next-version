@@ -16,7 +16,7 @@
   ],
   "type": "module",
   "bin": {
-    "next-version": "bin/cli/index.js"
+    "next-version": "bin/cli.js"
   },
   "files": [
     "bin",

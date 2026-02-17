@@ -1,5 +1,5 @@
 name: 'Next Version'
-description: 'Compute next semantic version using Conventional Commits, git tags, and npm registry'
+description: 'Compute next semantic version using semantic-release dry-run'
 author: 'Markus Windhager'
 
 branding:
@@ -7,53 +7,31 @@ branding:
   color: 'blue'
 
 inputs:
-  package:
-    description: 'npm package name used to query the registry, e.g. @scope/corelib'
-    required: true
   branches:
-    description: 'Branches config as JSON array (semantic-release format: name/prerelease/channel)'
+    description: 'Branch rule specs (one per line). Format: "<name>[;key[=value]]..." e.g. "main", "develop;prerelease=dev;channel=develop"'
+    required: true
+  tag-format:
+    description: 'Git tag format (default: "v${version}")'
     required: false
-  branch:
-    description: 'Simple branch entries (one per line). Alternative to branches JSON.'
+  preset:
+    description: 'Conventional changelog preset (default: "angular")'
     required: false
-  tag-prefix:
-    description: 'Git tag prefix (default: "v")'
-    required: false
-    default: 'v'
-  cwd:
-    description: 'Repository working directory (default: GITHUB_WORKSPACE)'
-    required: false
-  reachable-tags-only:
-    description: 'Only consider tags reachable from HEAD (default: true)'
-    required: false
-    default: 'true'
-  fail-if-no-bump:
-    description: 'Fail the action if no bump is recommended (default: false)'
-    required: false
-    default: 'false'
+    default: 'angular'
 
 outputs:
   version:
     description: 'The computed next version (e.g. 1.2.3 or 1.2.3-dev.4)'
   channel:
-    description: 'Release channel / npm dist-tag (e.g. latest, develop, beta)'
-  bump:
-    description: 'Bump type (major, minor, patch, premajor, preminor, prepatch, prerelease)'
-  already-published:
-    description: 'Whether this version is already published to npm (true/false)'
-  last-stable-version:
-    description: 'Last stable version found from git tags'
-  last-stable-tag:
-    description: 'Last stable git tag'
-  next-base-version:
-    description: 'Next base version (X.Y.Z) without prerelease suffix'
-  prerelease-id:
-    description: 'Prerelease identifier (e.g. dev, beta) if applicable'
-  prerelease-counter:
-    description: 'Prerelease counter N in X.Y.Z-preid.N if applicable'
-  json:
-    description: 'Full result as JSON string'
+    description: 'Release channel (e.g. latest, develop, beta)'
+  type:
+    description: 'Release type (major, minor, patch)'
+  git-tag:
+    description: 'The git tag for this release'
+  git-head:
+    description: 'The git commit SHA'
+  name:
+    description: 'Release name'
 
 runs:
   using: 'node20'
-  main: 'dist/action/index.js'
+  main: 'bin/action.js'

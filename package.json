@@ -40,10 +40,7 @@
   "scripts": {
     "start": "npx next-version",
     "test": "npx jest",
-    "build:ts": "tsc",
-    "build:cli": "ncc build dist/cli.js -o bin/cli --minify --license licenses.txt",
-    "build:action": "ncc build dist/action-entrypoint.js -o bin/action --minify --license licenses.txt",
-    "build": "npm run build:ts && npm run build:cli && npm run build:action"
+    "build": "tsx esbuild.config.ts"
   },
   "dependencies": {
     "@actions/core": "^3.0.0",

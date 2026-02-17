@@ -1,3 +1,5 @@
 node_modules/
 dist/
 # bin/ wird versioniert und bleibt im Repo
+# Nach dem initialen Commit bitte nicht mehr versionieren:
+src/version.ts

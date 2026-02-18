@@ -22,7 +22,7 @@ const options: BuildOptions = {
     minify: true,
     platform: 'node',
     target: 'node20',
-    format: 'cjs',
+    format: 'esm',
     legalComments: 'linked',
 } as const;
 

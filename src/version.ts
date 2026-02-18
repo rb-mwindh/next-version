@@ -5,5 +5,5 @@
 
 export default {
   name: "@rb-mwindh/next-version",
-  version: "0.0.0",
+  version: "1.0.3",
 };

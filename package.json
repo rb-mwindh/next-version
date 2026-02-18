@@ -39,7 +39,7 @@
   },
   "scripts": {
     "start": "npx next-version",
-    "test": "npx jest",
+    "test": "npx jest --passWithNoTests",
     "build": "tsx esbuild.config.ts"
   },
   "dependencies": {

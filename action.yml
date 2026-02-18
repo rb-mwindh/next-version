@@ -17,6 +17,9 @@ inputs:
     description: 'Conventional changelog preset (default: "angular")'
     required: false
     default: 'angular'
+  relnotes_artifact:
+    description: 'If set, upload the release notes file as an artifact with this name.'
+    required: false
 
 outputs:
   version:
@@ -31,6 +34,8 @@ outputs:
     description: 'The git commit SHA'
   name:
     description: 'Release name'
+  relnotes_path:
+    description: 'Path to the file containing the generated release notes. This can be controlled via the RELEASE_NOTES environment variable (see documentation).'
 
 runs:
   using: 'node20'

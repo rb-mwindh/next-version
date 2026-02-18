@@ -33,7 +33,7 @@ export function parseBranchRuleSpec(spec: string): BranchObject {
         .filter(Boolean);
 
     if (!name) {
-        throw new InvalidArgumentError('Missing branch name in --branch spec');
+        throw new InvalidArgumentError('Missing branch name in --branches spec');
     }
 
     const rule: BranchObject = { name };
@@ -57,21 +57,21 @@ export function parseBranchRuleSpec(spec: string): BranchObject {
                 break;
             case 'channel':
                 if (!value) {
-                    throw new InvalidArgumentError(`Missing value for channel in --branch spec part: "${part}"`);
+                    throw new InvalidArgumentError(`Missing value for channel in --branches spec part: "${part}"`);
                 }
                 rule.channel = value;
                 break;
             case 'range':
                 if (!value) {
-                    throw new InvalidArgumentError(`Missing value for range in --branch spec part: "${part}"`);
+                    throw new InvalidArgumentError(`Missing value for range in --branches spec part: "${part}"`);
                 }
                 if (!/^\d+(\.\d+)?\.x$/.test(value)) {
-                    throw new InvalidArgumentError(`Invalid format for range value in --branch spec part: "${part}". Expected format is N.N.x or N.x`);
+                    throw new InvalidArgumentError(`Invalid format for range value in --branches spec part: "${part}". Expected format is N.N.x or N.x`);
                 }
                 rule.range = value;
                 break;
             default:
-                throw new InvalidArgumentError(`Unknown --branch segment "${key}" in branch spec part: "${part}"`);
+                throw new InvalidArgumentError(`Unknown --branches segment "${key}" in branch spec part: "${part}"`);
         }
     }
     return rule;

@@ -65,7 +65,7 @@ export function parseBranchRuleSpec(spec: string): BranchObject {
                 if (!value) {
                     throw new InvalidArgumentError(`Missing value for range in --branch spec part: "${part}"`);
                 }
-                if (!/^\d+\.\d+(\.x)?$/.test(value)) {
+                if (!/^\d+(\.\d+)?\.x$/.test(value)) {
                     throw new InvalidArgumentError(`Invalid format for range value in --branch spec part: "${part}". Expected format is N.N.x or N.x`);
                 }
                 rule.range = value;

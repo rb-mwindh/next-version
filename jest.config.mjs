@@ -1,7 +1,7 @@
 /** @type {import('jest').Config} */
-module.exports = {
+export default {
   testEnvironment: 'node',
-  testMatch: ["**/*.spec.ts"],
+  testMatch: ["**/*.spec.ts", "**/*.test.ts"],
 
   transform: {
     '^.+\\.ts$': ['ts-jest', {
@@ -13,4 +13,7 @@ module.exports = {
   moduleNameMapper: {
     "^(\\.{1,2}\.*)\\.js$": "$1",
   },
+
+  extensionsToTreatAsEsm: ['.ts'],
 }
+

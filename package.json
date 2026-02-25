@@ -39,7 +39,7 @@
   },
   "scripts": {
     "start": "npx next-version",
-    "test": "npx jest",
+    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --runInBand",
     "build": "tsx esbuild.config.ts"
   },
   "dependencies": {

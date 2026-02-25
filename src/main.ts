@@ -19,7 +19,8 @@ export async function computeNextRelease(opts: Options): Promise<NextRelease | u
         const result = await semanticRelease({
             branches: branches,
             tagFormat: tagFormat,
-            ci: !createTag,
+            ci: false,
+            dryRun: !createTag,
             plugins: [
                 [ "@semantic-release/commit-analyzer", { preset: preset } ],
                 [ "@semantic-release/release-notes-generator", { preset: preset } ]

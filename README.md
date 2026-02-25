@@ -92,10 +92,10 @@ Add to your workflow:
 - `relnotesPath`: Path to the file containing the generated release notes. This can be controlled via the `RELEASE_NOTES` environment variable (see below).
 
 #### Release Notes Path Logic
-- If the `RELEASE_NOTES` environment variable is set to a directory, a unique filename is appended and the file is created there.
-- If the `RELEASE_NOTES` environment variable is set to a file path, that path is used directly.
+- If the `RELEASE_NOTES` environment variable is set to a path that points to an **existing directory**, a unique filename is appended and the file is created there.
+- If the `RELEASE_NOTES` environment variable is set to any other path, it is treated as a file path and that path is used directly.
 - If the variable is not set, a unique file is created in the directory specified by `RUNNER_TEMP` (if set) or the system temp directory.
-- The target directory is always created if it does not exist.
+- The directory in which the release notes file is written (either the directory from `RELEASE_NOTES` or the parent directory of the file path) is always created if it does not exist.
 
 #### Preset Support
 All conventional-changelog presets listed below are bundled with this tool

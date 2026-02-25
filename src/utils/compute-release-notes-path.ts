@@ -5,8 +5,10 @@ import path from "node:path";
 /**
  * Determines the path for the release notes file.
  *
- * - If RELEASE_NOTES env is set to a directory, appends a unique filename.
- * - If RELEASE_NOTES env is set to a file path, uses it directly.
+ * - If RELEASE_NOTES env is set to an existing directory, appends a unique filename.
+ * - If RELEASE_NOTES env is set to an existing file path, uses it directly.
+ * - If RELEASE_NOTES env is set to a non-existent path with no extension, treats it as a directory and appends a unique filename.
+ * - If RELEASE_NOTES env is set to a non-existent path with an extension, uses it directly as a file path.
  * - Otherwise, uses RUNNER_TEMP or os.tmpdir() with a unique filename.
  *
  * Also ensures the target directory exists.
@@ -17,11 +19,19 @@ export function computeReleaseNotesPath(): string {
 
     let releaseNotesPath: string;
     if (process.env.RELEASE_NOTES) {
-        // Check if RELEASE_NOTES is a directory
-        if (fs.existsSync(process.env.RELEASE_NOTES) && fs.statSync(process.env.RELEASE_NOTES).isDirectory()) {
-            releaseNotesPath = path.join(process.env.RELEASE_NOTES, defaultFilename);
+        const fileOrDirectory = process.env.RELEASE_NOTES;
+        if (fs.existsSync(fileOrDirectory)) {
+            if (fs.statSync(fileOrDirectory).isDirectory()) {
+                releaseNotesPath = path.join(fileOrDirectory, defaultFilename);
+            } else {
+                releaseNotesPath = fileOrDirectory;
+            }
         } else {
-            releaseNotesPath = process.env.RELEASE_NOTES;
+            if (path.extname(fileOrDirectory) === '') {
+                releaseNotesPath = path.join(fileOrDirectory, defaultFilename);
+            } else {
+                releaseNotesPath = fileOrDirectory;
+            }
         }
     } else {
         releaseNotesPath = path.join(tempDir, defaultFilename);

@@ -82,12 +82,13 @@ export const addTagNote =
  * Utility for creating and manipulating a temporary git repository for integration tests.
  *
  * Usage:
- *   const repo = await GitRepo.create({ initialBranch: 'main' });
+ *   const repo = new GitRepo({ initialBranch: 'main' });
+ *   await repo.init();
  *   await repo.editFile('foo.txt', 'bar');
  *   await repo.commit('feat: add foo');
  *   await repo.push(); // explicit push
  *   await repo.tag('v1.0.0');
- *   await repo.cleanup();
+ *   await repo.teardown();
  */
 export class GitRepo {
     /** Absolute path to the repository root directory. */
@@ -97,7 +98,7 @@ export class GitRepo {
     private initialOptions: GitRepoOpts;
 
     /**
-     * Private constructor. Use GitRepo.create() to instantiate.
+     * Creates a new GitRepo instance. Call {@link init} to initialize the repository.
      */
     constructor(opts?: GitRepoOpts) {
         this.repoDir = path.join(os.tmpdir(), `git-repo-${Date.now()}-${Math.random().toString(16).slice(2)}`);

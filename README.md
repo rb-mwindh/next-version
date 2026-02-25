@@ -8,8 +8,7 @@ A CLI and GitHub Action to compute the next semantic version for your npm packag
 
 ## Features
 - Computes next version based on commit history and tags
-- Supports prerelease channels (e.g. develop, beta) with semantic-release-like counters
-- Integrates with npm registry to avoid version collisions
+- Supports prerelease channels (e.g. develop, beta)
 - Usable as a CLI or as a GitHub Action
 - Customizable branch/channel rules
 
@@ -22,32 +21,30 @@ A CLI and GitHub Action to compute the next semantic version for your npm packag
 Install globally or use via npx:
 
 ```sh
-npx @rb-mwindh/next-version --package <name> --branch main
+npx @rb-mwindh/next-version --branches main
 ```
 
 #### Options
-- `--package <name>`: npm package name (required)
-- `--cwd <path>`: working directory (default: current)
-- `--tag-prefix <prefix>`: git tag prefix (default: "v")
-- `--current-branch <name>`: branch name (default: GITHUB_REF_NAME)
-- `--branches <json>`: branches config as JSON array (semantic-release format)
-- `--branch <name>`: simple branch entry (repeatable)
-- `--reachable-tags-only`: only tags reachable from HEAD (default)
-- `--all-tags`: consider all tags in repo
-- `--fail-if-no-bump`: exit non-zero if no bump is recommended
-- `--json`: print result as JSON
+- `--branches <branch...>`: Branch rules in SemanticRelease format, e.g. "main", "develop;prerelease=true", "beta;prerelease=beta;channel=beta". Option can be specified multiple times.
+- `--tag-format <format>`: Git tag format (optional)
+- `--preset <name>`: Conventional Commit preset (default: "angular"). Supported: angular, atom, codemirror, conventionalcommits, ember, eslint, express, jquery, jshint.
+- `--create-tag`: Whether to create a git tag for the computed version (default: false)
+- `--json`: Output as JSON
 
 #### Examples
 
 ```sh
 # Compute next version for main branch
-npx @rb-mwindh/next-version --package @scope/corelib --branch main
+npx @rb-mwindh/next-version --branches main
 
-# Use custom branches config (semantic-release style)
-npx @rb-mwindh/next-version --package mylib --branches '[{"name":"main"},{"name":"develop","prerelease":"dev"}]'
+# Custom branches config
+npx @rb-mwindh/next-version --branches main --branches "develop;prerelease=dev;channel=develop"
 
 # Output as JSON
-npx @rb-mwindh/next-version --package mylib --branch main --json
+npx @rb-mwindh/next-version --branches main --json
+
+# Compute and create a git tag for the next version
+npx @rb-mwindh/next-version --branches main --create-tag
 ```
 
 ---
@@ -58,33 +55,74 @@ Add to your workflow:
 
 ```yaml
 - uses: rb-mwindh/next-version@main
+  id: next-version
   with:
-    package: '@scope/corelib'
-    branch: main
-    tag-prefix: 'v'
-    cwd: ${{ github.workspace }}
+    branches: |
+      main
+      develop;prerelease=dev;channel=develop
+    tagFormat: 'v${version}'
+    preset: angular
+    createTag: false
+    relnotesArtifact: release-notes
+
+- run: |
+    echo "Next version: ${{ steps.next-version.outputs.version }}"
+    echo "Release channel: ${{ steps.next-version.outputs.channel }}"
+    echo "Bump type: ${{ steps.next-version.outputs.type }}"
+    echo "Git tag: ${{ steps.next-version.outputs.gitTag }}"
+    echo "Git head: ${{ steps.next-version.outputs.gitHead }}"
+    echo "Package name: ${{ steps.next-version.outputs.name }}"
+    echo "Release notes path: ${{ steps.next-version.outputs.relnotesPath }}"
 ```
 
 #### Action Inputs
-- `package`: npm package name (required)
-- `branches`: branches config as JSON array (semantic-release format)
-- `branch`: simple branch entry (repeatable)
-- `tag-prefix`: git tag prefix (default: "v")
-- `cwd`: working directory (default: GITHUB_WORKSPACE)
-- `reachable-tags-only`: only tags reachable from HEAD (default: true)
-- `fail-if-no-bump`: fail if no bump is recommended (default: false)
+- `branches`: Branch rules as multiline string (SemanticRelease format)
+- `tagFormat`: Git tag format (default: "v${version}")
+- `preset`: Conventional Commit preset (default: "angular"). Supported: angular, atom, codemirror, conventionalcommits, ember, eslint, express, jquery, jshint.
+- `createTag`: Whether to create a git tag for the computed version (default: false). If false, the action will only compute the next version without creating a git tag.
+- `relnotesArtifact`: If set, upload the release notes file as an artifact with this name
 
 #### Action Outputs
 - `version`: computed next version
 - `channel`: release channel / npm dist-tag
-- `bump`: bump type (major, minor, patch, premajor, etc.)
-- `already-published`: whether this version is already published
-- `last-stable-version`: last stable version from tags
-- `last-stable-tag`: last stable git tag
-- `next-base-version`: next base version (X.Y.Z)
-- `prerelease-id`: prerelease identifier (if applicable)
-- `prerelease-counter`: prerelease counter (if applicable)
-- `json`: full result as JSON
+- `type`: bump type (major, minor, patch)
+- `gitTag`: last computed git tag
+- `gitHead`: commit hash
+- `name`: package name
+- `relnotesPath`: Path to the file containing the generated release notes. This can be controlled via the `RELEASE_NOTES` environment variable (see below).
+
+#### Release Notes Path Logic
+- If the `RELEASE_NOTES` environment variable is set to a path that points to an **existing directory**, a unique filename is appended and the file is created there.
+- If the `RELEASE_NOTES` environment variable is set to any other path, it is treated as a file path and that path is used directly.
+- If the variable is not set, a unique file is created in the directory specified by `RUNNER_TEMP` (if set) or the system temp directory.
+- The directory in which the release notes file is written (either the directory from `RELEASE_NOTES` or the parent directory of the file path) is always created if it does not exist.
+
+#### Preset Support
+All conventional-changelog presets listed below are bundled with this tool
+and may be selected using the `preset` parameter (CLI) or input (GitHub Action):
+
+- angular
+- atom
+- codemirror
+- conventionalcommits
+- ember
+- eslint
+- express
+- jquery
+- jshint
+
+Example (CLI):
+```sh
+npx @rb-mwindh/next-version --branches main --preset codemirror
+```
+
+Example (GitHub Action):
+```yaml
+- uses: rb-mwindh/next-version@main
+  with:
+    branches: main
+    preset: codemirror
+```
 
 ---
 
@@ -92,19 +130,20 @@ Add to your workflow:
 
 ### Build
 
-This project uses [@vercel/ncc](https://github.com/vercel/ncc) to bundle all runtime dependencies for CLI and GitHub Action. The output is committed to `bin/`.
+This project uses [esbuild](https://github.com/evanw/esbuild) and [esbuild-plugin-license](https://github.com/bcherny/esbuild-plugin-license) for bundling and license generation.
 
 ```sh
 npm ci
 npm run build
 ```
 
-- TypeScript builds to `dist/`
-- Bundles are created in `bin/cli/` and `bin/action/`
-- Only `bin/` is versioned (see .gitignore)
+- Bundles are generated in `bin/cli.js` and `bin/action.js`
+- License files are automatically generated in `bin/cli.js.LICENSES.txt` and `bin/action.js.LICENSES.txt` and include all third-party licenses
 
 ---
 
 ## License
 
 MIT © Markus Windhager
+
+The license files in the `bin/` directory include the licenses of all used third-party dependencies.

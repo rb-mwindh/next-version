@@ -40,7 +40,7 @@ describe('GitRepo basic functionality', () => {
     await repo.editFile('foo.txt', 'hello');
     await repo.commit('feat: initial commit');
     await repo.commit('feat: add foo', { allowEmpty: true });
-    await repo.tag('v1.0.0', 'release');
+    await repo.tag('v1.0.0', { message: 'release'});
     const tags = await repo.git.tags();
     expect(tags.all).toContain('v1.0.0');
   });

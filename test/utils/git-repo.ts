@@ -345,8 +345,7 @@ export class GitRepo {
 
     async refExists(ref: string): Promise<boolean> {
         try {
-            const sha = await this.git.raw(['show-ref', '--verify', ref]);
-            console.log(`git show-ref --verify ${ref}`, `==>`, sha);
+            await this.git.raw(['show-ref', '--verify', ref]);
             return true;
         } catch (err) {
             return false;

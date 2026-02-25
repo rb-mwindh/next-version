@@ -16,7 +16,7 @@
   ],
   "type": "module",
   "bin": {
-    "next-version": "bin/cli/index.js"
+    "next-version": "bin/cli.js"
   },
   "files": [
     "bin",
@@ -40,10 +40,7 @@
   "scripts": {
     "start": "npx next-version",
     "test": "npx jest",
-    "build:ts": "tsc",
-    "build:cli": "ncc build dist/cli.js -o bin/cli --minify --license licenses.txt",
-    "build:action": "ncc build dist/action-entrypoint.js -o bin/action --minify --license licenses.txt",
-    "build": "npm run build:ts && npm run build:cli && npm run build:action"
+    "build": "tsx esbuild.config.ts"
   },
   "dependencies": {
     "@actions/core": "^2.0.2",
@@ -62,7 +59,10 @@
     "@types/semver": "^7.7.1",
     "@vercel/ncc": "^0.38.4",
     "conventional-recommended-bump": "^11.2.0",
+    "esbuild": "^0.27.3",
+    "esbuild-plugin-license": "^1.2.3",
     "jest": "^30.2.0",
-    "ts-jest": "^29.4.6"
+    "ts-jest": "^29.4.6",
+    "tsx": "^4.21.0"
   }
 }

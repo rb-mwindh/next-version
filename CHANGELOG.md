@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/rb-mwindh/next-version/compare/v1.0.3...v1.1.0) (2026-02-25)
+
+
+### Features
+
+* switch to semantic-release dry-run and update inputs/outputs ([6558b11](https://github.com/rb-mwindh/next-version/commit/6558b1105fcb0ba2fb2e70e498cd9bffcad56fc1))
+
 ## [1.0.3](https://github.com/rb-mwindh/next-version/compare/v1.0.2...v1.0.3) (2026-02-13)
 
 

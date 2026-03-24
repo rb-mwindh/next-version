@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/rb-mwindh/next-version/compare/v1.1.0...v1.2.0) (2026-03-24)
+
+
+### Features
+
+* **action:** add `notes` output parameter ([b0813cb](https://github.com/rb-mwindh/next-version/commit/b0813cbb4ee0c0101583d3e5409765401d319e21))
+
 # [1.1.0](https://github.com/rb-mwindh/next-version/compare/v1.0.3...v1.1.0) (2026-02-25)
 
 

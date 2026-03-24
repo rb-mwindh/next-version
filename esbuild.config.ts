@@ -61,6 +61,7 @@ function licensePlugin(bundle: string) {
 await Promise.all([
     build({
         ...options,
+        format: 'esm',
         entryPoints: ['./src/cli.ts'],
         outfile: 'bin/cli.js',
         banner: {js: '#!/usr/bin/env node\n'},
@@ -68,8 +69,10 @@ await Promise.all([
     }),
     build({
         ...options,
+        format: 'cjs',
         entryPoints: ['./src/action.ts'],
-        outfile: 'bin/action.js',
-        plugins: [licensePlugin('action.js')],
+        outfile: 'bin/action.cjs',
+        plugins: [licensePlugin('action.cjs')],
+        // minify: false,
     }),
 ]);

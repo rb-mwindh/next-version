@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/rb-mwindh/next-version/compare/v1.2.2...v1.2.3) (2026-03-24)
+
+
+### Bug Fixes
+
+* **build:** replace import.meta.url with __filename in CJS bundle ([ebdede0](https://github.com/rb-mwindh/next-version/commit/ebdede0f7eca62b3ec94628972e61e7d5d13be4f))
+
 ## [1.2.2](https://github.com/rb-mwindh/next-version/compare/v1.2.1...v1.2.2) (2026-03-24)
 
 

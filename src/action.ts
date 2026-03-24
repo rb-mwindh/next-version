@@ -27,6 +27,7 @@ import {computeReleaseNotesPath, parseBranchRuleSpec, toPreset} from './utils/in
         core.setOutput('gitTag', result?.gitTag ?? '');
         core.setOutput('gitHead', result?.gitHead ?? '');
         core.setOutput('name', result?.name ?? '');
+        core.setOutput('notes', result?.notes ?? '');
 
         if (result?.notes) {
             const releaseNotesFile = computeReleaseNotesPath();

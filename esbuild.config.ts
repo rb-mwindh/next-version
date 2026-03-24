@@ -79,7 +79,7 @@ function patchImportMetaUrlPlugin(): Plugin {
                     loader,
                     contents: contents.replaceAll(
                         'import.meta.url',
-                        'require("node:url").pathToFileURL(__filename).href'
+                        '__filename'
                     )
                 };
             })

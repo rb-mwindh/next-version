@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/rb-mwindh/next-version/compare/v1.2.1...v1.2.2) (2026-03-24)
+
+
+### Bug Fixes
+
+* **build:** patch import.meta.url for CJS action bundle ([1cd36a9](https://github.com/rb-mwindh/next-version/commit/1cd36a9fba927eff327f5c0e03f00688575ef692))
+
 ## [1.2.1](https://github.com/rb-mwindh/next-version/compare/v1.2.0...v1.2.1) (2026-03-24)
 
 

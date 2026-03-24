@@ -40,6 +40,8 @@ outputs:
     description: 'Release name'
   relnotesPath:
     description: 'Path to the file containing the generated release notes. This can be controlled via the RELEASE_NOTES environment variable (see documentation).'
+  notes:
+    description: 'The generated release notes as a string (if available).'
 
 runs:
   using: 'node20'

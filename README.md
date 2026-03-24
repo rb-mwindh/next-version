@@ -73,6 +73,7 @@ Add to your workflow:
     echo "Git head: ${{ steps.next-version.outputs.gitHead }}"
     echo "Package name: ${{ steps.next-version.outputs.name }}"
     echo "Release notes path: ${{ steps.next-version.outputs.relnotesPath }}"
+    echo "Release notes: ${{ steps.next-version.outputs.notes }}"
 ```
 
 #### Action Inputs
@@ -90,6 +91,7 @@ Add to your workflow:
 - `gitHead`: commit hash
 - `name`: package name
 - `relnotesPath`: Path to the file containing the generated release notes. This can be controlled via the `RELEASE_NOTES` environment variable (see below).
+- `notes`: The generated release notes as a string (if available).
 
 #### Release Notes Path Logic
 - If the `RELEASE_NOTES` environment variable is set to a path that points to an **existing directory**, a unique filename is appended and the file is created there.

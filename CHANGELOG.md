@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/rb-mwindh/next-version/compare/v1.2.0...v1.2.1) (2026-03-24)
+
+
+### Bug Fixes
+
+* **action:** build GitHub Action as CommonJS to avoid dynamic require error ([1520b71](https://github.com/rb-mwindh/next-version/commit/1520b71fb7411dff4fa17e3ae82d264b1f847b3c))
+
 # [1.2.0](https://github.com/rb-mwindh/next-version/compare/v1.1.0...v1.2.0) (2026-03-24)
 
 

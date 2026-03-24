@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import {build, type BuildOptions} from 'esbuild';
+import {build, type BuildOptions, type Plugin} from 'esbuild';
 // @ts-ignore
 import esbuildPluginLicense from "esbuild-plugin-license";
 import pkg from './package.json' with {type: 'json'};
@@ -58,6 +58,35 @@ function licensePlugin(bundle: string) {
     });
 }
 
+function patchImportMetaUrlPlugin(): Plugin {
+    return {
+        name: 'patch-import-meta-url',
+        setup(build) {
+            build.onLoad({filter: /\.[cm]?[jt]s$/}, async (args) => {
+                const contents = await fs.promises.readFile(args.path, 'utf8');
+                if (!contents.includes('import.meta.url')) {
+                    return null;
+                }
+
+                const loader =
+                    args.path.endsWith('.ts') ? 'ts' :
+                        args.path.endsWith('.mts') ? 'ts' :
+                            args.path.endsWith('.cts') ? 'ts' :
+                                args.path.endsWith('.jsx') ? 'jsx' :
+                                    args.path.endsWith('.tsx') ? 'tsx' :
+                                        'js';
+                return {
+                    loader,
+                    contents: contents.replaceAll(
+                        'import.meta.url',
+                        'require("node:url").pathToFileURL(__filename).href'
+                    )
+                };
+            })
+        }
+    };
+}
+
 await Promise.all([
     build({
         ...options,
@@ -72,7 +101,10 @@ await Promise.all([
         format: 'cjs',
         entryPoints: ['./src/action.ts'],
         outfile: 'bin/action.cjs',
-        plugins: [licensePlugin('action.cjs')],
+        plugins: [
+            patchImportMetaUrlPlugin(),
+            licensePlugin('action.cjs')
+        ],
         // minify: false,
     }),
 ]);

@@ -1,3 +1,10 @@
+## [1.2.4](https://github.com/rb-mwindh/next-version/compare/v1.2.3...v1.2.4) (2026-03-25)
+
+
+### Bug Fixes
+
+* **action:** ship unbundled ESM artifacts with runtime dependencies in bin ([02b3d38](https://github.com/rb-mwindh/next-version/commit/02b3d3885773b953b5ef20056d6bc26235005b21))
+
 ## [1.2.3](https://github.com/rb-mwindh/next-version/compare/v1.2.2...v1.2.3) (2026-03-24)
 
 

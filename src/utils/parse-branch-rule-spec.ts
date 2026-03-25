@@ -1,5 +1,5 @@
-import {InvalidArgumentError} from "commander";
-import {BranchObject} from "semantic-release";
+import {InvalidArgumentError} from "./invalid-argument-error.js";
+import type {BranchObject} from "semantic-release";
 
 /**
  * Parse a branch rule specification string into a BranchRule object.

@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import {Command} from "commander";
 import type {BranchObject, NextRelease} from "semantic-release";
 import {parseBranchRuleSpec, toPreset} from "./utils/index.js";

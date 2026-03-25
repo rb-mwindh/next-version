@@ -45,4 +45,4 @@ outputs:
 
 runs:
   using: 'node20'
-  main: 'bin/action.cjs'
+  main: 'bin/action.js'

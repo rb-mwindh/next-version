@@ -1,3 +1,5 @@
 node_modules/
-dist/
-# bin/ wird versioniert und bleibt im Repo
+
+# bin/ and bin/node_modules are committed and stay in the repo
+!bin/
+!bin/node_modules/
